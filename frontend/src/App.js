@@ -9,7 +9,8 @@ class App extends React.Component{
       users : []
     }
     getUser = async () => {
-      const users= await (await axios.get(`http://localhost:8000/users/user/1`)).data
+      const users= await (await axios.get(`http://localhost:8000/users/user/1?`)).data
+      
       this.setState({users})
     }
 
