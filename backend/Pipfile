@@ -9,6 +9,10 @@ black = "*"
 
 [packages]
 django = "*"
+pillow = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+django-seed = "*"
 
 [requires]
 python_version = "3.7"
