@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import './User'
 import User from './User';
@@ -6,12 +6,11 @@ import axios from 'axios';
 
 class App extends React.Component{
     state = {
-      users : []
+      users : [],
     }
     getUser = async () => {
-      const users= await (await axios.get(`http://localhost:8000/users/user/1?`)).data
-      
-      this.setState({users})
+      const users = (await axios.get("http://localhost:8000/api/v2/users/user/")).data      
+      this.setState({users});
     }
 
     componentDidMount(){
@@ -20,14 +19,26 @@ class App extends React.Component{
 
     render(){
        const {users} = this.state
-       
        return(
+         <section>
           <div>
-                {users.id}
-                {users.email}
-                {users.first_name}
-                {users.last_name}
+          
+            {
+              
+              users.map(user => {
+                return <User
+                    key={user.id}
+                    id={user.id}
+                    username={user.username}
+                    first_name={user.first_name}
+                    last_name={user.last_name}
+                    email={user.email}
+                    avator={user.avator}
+                />
+              })
+            }
           </div>
+          </section>
        )
     }
 }
