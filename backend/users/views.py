@@ -8,9 +8,16 @@ from .serializers import UserSerializer
 
 @api_view(["GET"])
 def user_list(request):
-    user = User.objects.all()
-    return Response(UserSerializer(user, many=True).data)
-
+    page = int(request.query_params.get("page"))
+    page_size = int(request.query_params.get("pagesize"))
+    if page <= 0 or page_size <= 0:
+        return Response("Required page and pagesize bigger than Zero")
+    else:
+        offset = (page-1) * page_size
+        limit = page_size * page
+        user = User.objects.all()[offset:limit]
+        return Response(UserSerializer(user, many=True).data)
+    
 @api_view(["GET"])
 def user_detail(request, pk):
     try:
@@ -18,6 +25,10 @@ def user_detail(request, pk):
         return Response(UserSerializer(user).data)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+        
+
+
+
 
 @api_view(["POST"])
 def login(request):
