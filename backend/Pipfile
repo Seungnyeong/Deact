@@ -13,6 +13,7 @@ pillow = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 django-seed = "*"
+faker = "*"
 
 [requires]
 python_version = "3.7"
