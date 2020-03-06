@@ -3,14 +3,47 @@ import './App.css';
 import './User'
 import User from './User';
 import axios from 'axios';
+import {ENDPOINT} from "./constants"
+
 
 class App extends React.Component{
-    state = {
-      users : [],
+   constructor(props){
+     super(props)
+     this.state = {
+        users : [],
+        page : 1,
+        pagesize : 4,
+     }
+   }
+   
+    handleIncrease = () => {
+      if(this.state.users != null){
+        this.setState({
+          page: this.state.page + 1
+        });
+        this.getUser()
+      }
+      
     }
+  
+    handleDecrease = () => {
+      if(this.state.page > 0){
+        this.setState({
+          page: this.state.page - 1
+        });
+        this.getUser()
+      }
+    }
+  
+    
     getUser = async () => {
-      const users = (await axios.get("http://localhost:8000/api/v2/users/user/")).data      
+      let page = this.state.page
+      console.log(page)
+      let pagesize = this.state.pagesize
+      const URL = ENDPOINT + `users/user/?page=${page}&pagesize=${pagesize}`
+      const users = (await axios.get(URL)).data      
       this.setState({users});
+      console.log(this.state.page)
     }
 
     componentDidMount(){
@@ -19,14 +52,14 @@ class App extends React.Component{
 
     render(){
        const {users} = this.state
+       
        return(
-         <section>
-          <div>
-          
-            {
-              
+         <section className=" justify-center overflow-auto bg-blue-300">
+          <div className="flex w-full justify-center">
+
+            {      
               users.map(user => {
-                return <User
+                return <User 
                     key={user.id}
                     id={user.id}
                     username={user.username}
@@ -38,7 +71,13 @@ class App extends React.Component{
               })
             }
           </div>
+          <div className=" w-full bg-fixed flex justify-center w-auto py-4"> 
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3" onClick={this.handleDecrease}>이전페이지</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3" onClick={this.handleIncrease}>다음페이지</button>
+          </div>
+          
           </section>
+          
        )
     }
 }
