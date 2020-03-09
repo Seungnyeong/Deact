@@ -28,8 +28,6 @@ def user_detail(request, pk):
         
 
 
-
-
 @api_view(["POST"])
 def login(request):
     username = request.data.get("username")
