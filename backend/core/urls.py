@@ -4,5 +4,6 @@ from . import views
 app_name = "core"
 
 urlpatterns = [
-    path("naver/", views.NaverLab)
+    path("naver/", views.NaverLab),
+    path("search/", views.Search)
 ]

@@ -3,6 +3,8 @@ from django.http import HttpResponse
 import os
 import sys
 import urllib.request
+import requests
+from rest_framework import status
 
 def NaverLab(request):
     client_id = "GadCA8izUexXJ7fxBdFr"
@@ -21,3 +23,41 @@ def NaverLab(request):
         return HttpResponse(result)
     else:
         return HttpResponse("Fail to Response Reuslt from Naver API Calls")
+
+
+def Search(request):
+    select = request.GET.get('select', '*')
+    volume = request.GET.get('from', 'board.board')
+    where = request.GET.get('where', '')
+    offset = request.GET.get('offset', None)
+    limit = request.GET.get('limit', None)
+    custom = request.GET.get('custom', '')
+    hilite_fields = request.GET.get('hilite-fields','')
+    syn_domain_no = request.GET.get('syn-domain-no', None)
+    charset = request.GET.get('charset', 'utf8')
+    default_hilite = request.GET.get('default-hilite', '')
+    
+    
+    URL = "http://10.10.18.90:57578/search"
+    headers = {'Content-Type': 'text/json; charset=utf-8'}
+    body ={
+        "select" : select,
+        "from" : volume,
+        "where" : where,
+        "offset" : offset,
+        "limit" : limit,
+        "custom" : custom,
+        "hilite-fields" : hilite_fields,
+        "syn-domain-no" : syn_domain_no,
+        "charset" : charset,
+        "default-hilite": default_hilite
+    }
+    
+    res = requests.post(URL, headers=headers, data=body)
+    if(res.status_code == 200):
+        return HttpResponse(res, content_type="text/json")
+    else:
+        return HttpResponse('잘못된 요청입니다.')
+    
+    
+    

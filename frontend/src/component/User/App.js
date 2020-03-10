@@ -50,7 +50,6 @@ class App extends React.Component{
        
        return(
          <section className=" justify-center overflow-auto bg-gray-200 h-full bg-fixed">
-           <i></i>
            <span className=" text-black text-transparent font-sans text-2xl p-5 text"><FontAwesomeIcon className="mx-3 text-red-600" icon={faVial}/>추천 동영상</span>
           <div className="flex w-full justify-center">
             
