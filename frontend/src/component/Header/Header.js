@@ -1,5 +1,4 @@
 import React from 'react';
-import NaverAPI from '../Naver';
 import {BrowserRouter, Route, NavLink, Link, Switch} from "react-router-dom"
 import Main from "../Main"
 import List from "../List/List"

@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 import {ENDPOINT} from "../constants"
-import {fadeIn} from 'react-animations'
-import PropTypes from 'prop-types';
 
 class NaverAPI extends React.Component{
     

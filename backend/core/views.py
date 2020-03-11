@@ -54,6 +54,7 @@ def Search(request):
     }
     
     res = requests.post(URL, headers=headers, data=body)
+
     if(res.status_code == 200):
         return HttpResponse(res, content_type="text/json")
     else:

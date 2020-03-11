@@ -6,10 +6,10 @@ import Header from './component/Header/Header'
 class App extends React.Component{
     render(){
         return(
-            <div>
+            <section>
                 <Header/>
                 <Footer/>                 
-            </div>
+            </section>
            
           
         )

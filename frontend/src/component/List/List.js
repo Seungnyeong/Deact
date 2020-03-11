@@ -3,7 +3,9 @@ import React from 'react'
 
 class List extends React.Component{
     render(){
-        return "hi hello 안녕"
+        return (
+            <div className="max-h-full">List Page</div>
+        )
     }
 }
 

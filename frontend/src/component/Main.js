@@ -1,6 +1,5 @@
 import React from 'react'
 import App from './User/App'
-import NaverAPI from './Naver';
 import BackGround from '../static/images/1.png'
 
 class Main extends React.Component{
