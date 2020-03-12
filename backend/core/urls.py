@@ -5,5 +5,6 @@ app_name = "core"
 
 urlpatterns = [
     path("naver/", views.NaverLab),
-    path("search/", views.Search)
+    path("search/", views.Search),
+    path("ppk/", views.PopularAPI),
 ]

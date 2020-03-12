@@ -45,7 +45,7 @@ def Search(request):
         "from" : volume,
         "where" : where,
         "offset" : offset,
-        "limit" : limit,
+        "limit" : 30,
         "custom" : custom,
         "hilite-fields" : hilite_fields,
         "syn-domain-no" : syn_domain_no,
@@ -61,4 +61,11 @@ def Search(request):
         return HttpResponse('잘못된 요청입니다.')
     
     
-    
+def PopularAPI(request):
+    URL = "http://10.10.18.90:57614/ksf/api/rankings?domain_no=0&max_count=10"
+    res = requests.get(URL)
+
+    if(res.status_code == 200):
+        return HttpResponse(res, content_type="text/json")
+    else:
+        return HttpResponse('잘못된 요청입니다.00')

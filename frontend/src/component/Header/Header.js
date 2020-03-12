@@ -10,11 +10,13 @@ const  activeStyle = {
     color:'black',
 }
 class Header extends React.Component{
+
+
   
   render(){
     return(
     <BrowserRouter>
-      <nav className="flex items-center justify-between flex-wrap bg-yellow-600 p-6 border-b-2">
+      <nav className="flex items-center justify-between flex-wrap bg-yellow-600 p-6 border-b-2 ">
     
     <div className="flex items-center flex-shrink-0 text-white mr-6">
       
@@ -29,9 +31,6 @@ class Header extends React.Component{
       
       <div className="text-sm lg:flex-grow">
         <ul>
-          <li className="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4">
-              <NavLink to="/" activeStyle={activeStyle}>Home</NavLink>
-          </li>
           <li className="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4">
               <NavLink to="/list" activeStyle={activeStyle}>Open API</NavLink>
           </li>
