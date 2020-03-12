@@ -29,8 +29,8 @@ class Header extends React.Component{
     </div>
     <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
       
-      <div className="text-sm lg:flex-grow">
-        <ul>
+      <div className="text-sm flex-grow">
+        <ul >
           <li className="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4">
               <NavLink to="/list" activeStyle={activeStyle}>Open API</NavLink>
           </li>
@@ -40,15 +40,22 @@ class Header extends React.Component{
           <li className="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white">
               <NavLink to="/board" activeStyle={activeStyle}>Board</NavLink>
           </li>
+          
+           <li className=" w-auto h-8 rounded-lg float-right block mt-4 lg:inline-block lg:mt-0 text-black mr-3 bg-white" >
+              <div className=" ml-2 w-auto h-auto mt-1">
+                <FontAwesomeIcon className="inline-block mr-3" icon={faSearch}></FontAwesomeIcon>
+                <input placeholder="검색어를 입력해주세요" className="h-auto focus:outline-none "></input>
+              </div>
+           </li>
+          
+          
         </ul>
+       
       </div>
       
   
       <div className="flex">
-        <div className="flex bg-white text-center items-center focus:outline-none focus:shadow-outline border border-gray-500 rounded-lg py-1 px-4 block mx-4 appearance-none shadow-2xl leading-normal`">
-          <FontAwesomeIcon className="inline-block mr-3" icon={faSearch}></FontAwesomeIcon>
-        <input placeholder="검색어를 입력해주세요" className="w-auto h-auto focus:outline-none "></input>
-        </div>
+        
         
         <a href="#" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-yellow-500 hover:bg-white mt-4 lg:mt-0 text-center">Download</a>
       </div>

@@ -9,7 +9,7 @@ class SearchList extends React.Component{
     
     render(){
         return( 
-            <section className="max-h-full w-full  flex">
+            <section className="max-h-full w-full flex">
                     
                     
                     <Category/>
