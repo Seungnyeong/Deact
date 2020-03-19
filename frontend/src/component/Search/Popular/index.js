@@ -19,8 +19,7 @@ class Popular extends React.Component{
 
 
     render(){
-        const {result} = this.state
-        console.log(result)
+        const {result} = this.state;
         let number = 1;
         const arr = result.map((item) => (
         <li className="flex mb-1 transition duration-500 ease-in-out ease-in-out transform hover:-translate-y-1 hover:scale-110">
