@@ -34,15 +34,12 @@ const orderSearch = (text) =>{
 const reducer = (state= [], action) =>{
     switch(action.type){
         case SEARCH : 
-            return [{text:action.text, id: Date.now()}]
+            return [{text:action.text, ...state}]
         case CATEGORY : 
-            console.log("category");
             return state;
         case ORDER :
-            console.log("order");
             return state;
         default:
-            console.log("default");
             return state;
     }
 }

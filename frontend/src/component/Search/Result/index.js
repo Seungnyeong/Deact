@@ -4,29 +4,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngry,faMinus, faPlus, faAddressCard } from '@fortawesome/free-solid-svg-icons'
 import store from '../../../store'
 
-
-
-const SearchResultList = () =>{
+const SearchResultList = () => {
    
+    const keywords = store.getState().map((keyword) => (
+        <b className=" text-red-400">{keyword.text}</b>
+    ));
+    
     const [state, setState] = useState({
         result: [],
         total_count : '',
     });
     
+    const [text, setText] = useState('');
+    
+    
     useEffect(() => {
         
-        const URL = ENDPOINT +  `core/search`;  
+        const URL = ENDPOINT + `core/search?select=*&from=board.board`;  
         fetch(`${URL}`).then(res => res.json())
         .then(data => setState({
             result : data.result.rows,
             total_count : data.result.total_count,
         }));
-        
-    }, []);
 
-    const keywords = store.getState().map((keyword) => (
-        <b className="text-red-500">{keyword.text}</b>
-    ));
+
+        console.log(URL);
+    }, [text]);
+
+  
 
     const searchList = state.result.map((rows) => (
         <ul className="mx-4 mb-4 rounded-xl border-black border bg-gray-800 items-center overflow-y-hidden shadow-sm transition  duration-500 ease-in-out transform hover:scale-110 hover:translate-y-5 hover:z-auto hover:z-40 " style={{width :"200px", height : "300px"}}>
@@ -53,7 +58,7 @@ const SearchResultList = () =>{
         {state.total_count > 0 ? (<div className="mt-3 border-b-4 mb-1">
             <FontAwesomeIcon className="text-yellow-600 text-xl ml-3" icon={faAngry}/>
           {state.total_count > 0 ? <span className="ml-1">검색어 {keywords} 에 대한 검색 결과 총 <b className="text-red-500">{state.total_count}</b>개 입니다.</span> : <span className="ml-1">검색결과가 없습니다.</span>}
-        </div>) : <div>검색결과가 없습니다.</div> }
+        </div>) : <div>검색어 {keywords}에 대한 검색결과가 없습니다.</div> }
         <div className="flex flex-wrap justify-between h-75vh overflow-hidden overflow-scroll w-full" >
             {searchList}
             {state.total_count > 0 &&(

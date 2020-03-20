@@ -5,7 +5,6 @@ import {actionSearch} from "../../store";
 import Main from "../Main"
 import List from "../List/List"
 import SearchList from '../Search/SearchList'
-import {SearchResultList} from '../Search/Result/index'
 import Community from '../Community/Community'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +12,7 @@ const  activeStyle = {
     color:'black',
 }
 
-const Header = ({SearchResultList, nomalSearch}) => {
+const Header = ({nomalSearch}) => {
    
   const [text, setText] = useState("");
   
@@ -63,17 +62,11 @@ const Header = ({SearchResultList, nomalSearch}) => {
                     <input placeholder="검색어를 입력해주세요" onChange={onChange} value={text} className="h-auto focus:outline-none "></input>
                   </div>
                 </form>
-              </li>
-              
-              
+              </li>              
             </ul>
           
           </div>
-          
-
           <div className="flex">
-            
-            
             <a href="#" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-yellow-500 hover:bg-white mt-4 lg:mt-0 text-center">Download</a>
           </div>
         </div>
@@ -91,17 +84,17 @@ const Header = ({SearchResultList, nomalSearch}) => {
   )
 }
 
-function mapStateProps(state){
-    
-    return {SearchResultList : state.text};
+function mapStateToProps(state){
+    return {SearchResultList : state};
 }
 
 function mapDispatchToProps(dispatch){
+
     return {
       nomalSearch : text => dispatch(actionSearch.nomalSearch(text))
     };
 }
 
   
-export default connect(mapStateProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
 
