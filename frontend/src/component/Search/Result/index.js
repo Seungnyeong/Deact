@@ -4,9 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngry,faMinus, faPlus, faAddressCard } from '@fortawesome/free-solid-svg-icons'
 import store from '../../../store'
 
-const storedValue = store.getState();
-
-
 const SearchResultList = () => {
    
     const keywords = store.getState().map((keyword) => (
@@ -17,21 +14,26 @@ const SearchResultList = () => {
         result: [],
         total_count : ''
     });
-   
+
+    const [value, setValue] = useState('');
+
+    const listener = () => {
+        const state = store.getState().map(x => x.text);
+        setValue(state);
+    }
+    store.subscribe(listener);
     
-    const input =  store.getState().map(x => x.text);
-    console.log(input);
-    
-    useEffect(() => (input) => {
-        console.log(input)
-        const URL = ENDPOINT + `core/search?select=*&from=board.board&where=text_idx='${input}' allword`;  
+    useEffect(() => {
+        
+        const URL = ENDPOINT + `core/search?select=*&from=board.board&where=text_idx='${value}' allword`;  
+        console.log("URL", URL)
         fetch(`${URL}`).then(res => res.json())
         .then(data => setState({
             result : data.result.rows,
             total_count : data.result.total_count,
         }));
     
-    }, []);
+    }, [value]);
     
     
 

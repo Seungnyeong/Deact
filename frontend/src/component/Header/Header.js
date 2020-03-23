@@ -27,7 +27,7 @@ const Header = ({nomalSearch}) => {
     nomalSearch(text);
     setText("");
   }
-
+  console.log(text)
   return (
           <BrowserRouter>
           <nav className="flex items-center justify-between flex-wrap bg-yellow-600 p-6 border-b-2">
