@@ -4,34 +4,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngry,faMinus, faPlus, faAddressCard } from '@fortawesome/free-solid-svg-icons'
 import store from '../../../store'
 
+const storedValue = store.getState();
+
+
 const SearchResultList = () => {
    
     const keywords = store.getState().map((keyword) => (
-        <b className=" text-red-400">{keyword.text}</b>
+        <b className="text-red-500">{keyword.text}</b>
     ));
-    
+
     const [state, setState] = useState({
         result: [],
-        total_count : '',
+        total_count : ''
     });
+   
     
-    const [text, setText] = useState('');
+    const input =  store.getState().map(x => x.text);
+    console.log(input);
     
-    
-    useEffect(() => {
-        
-        const URL = ENDPOINT + `core/search?select=*&from=board.board`;  
+    useEffect(() => (input) => {
+        console.log(input)
+        const URL = ENDPOINT + `core/search?select=*&from=board.board&where=text_idx='${input}' allword`;  
         fetch(`${URL}`).then(res => res.json())
         .then(data => setState({
             result : data.result.rows,
             total_count : data.result.total_count,
         }));
-
-
-        console.log(URL);
-    }, [text]);
-
-  
+    
+    }, []);
+    
+    
 
     const searchList = state.result.map((rows) => (
         <ul className="mx-4 mb-4 rounded-xl border-black border bg-gray-800 items-center overflow-y-hidden shadow-sm transition  duration-500 ease-in-out transform hover:scale-110 hover:translate-y-5 hover:z-auto hover:z-40 " style={{width :"200px", height : "300px"}}>

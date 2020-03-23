@@ -34,7 +34,7 @@ const orderSearch = (text) =>{
 const reducer = (state= [], action) =>{
     switch(action.type){
         case SEARCH : 
-            return [{text:action.text, ...state}]
+            return [{text:action.text}]
         case CATEGORY : 
             return state;
         case ORDER :
