@@ -45,7 +45,7 @@ def Search(request):
         "from" : volume,
         "where" : where,
         "offset" : offset,
-        "limit" : 30,
+        "limit" : limit,
         "custom" : custom,
         "hilite-fields" : hilite_fields,
         "syn-domain-no" : syn_domain_no,

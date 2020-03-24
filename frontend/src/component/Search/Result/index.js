@@ -3,6 +3,7 @@ import {ENDPOINT} from "../../../constants"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngry,faMinus, faPlus, faAddressCard } from '@fortawesome/free-solid-svg-icons'
 import store from '../../../store'
+const page_size = 8;
 
 const SearchResultList = () => {
    
@@ -15,17 +16,33 @@ const SearchResultList = () => {
         total_count : ''
     });
 
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState({
+        text : '',
+        page : 1
+    });
+
+    const handleIncrease = () => {    
+        let page = value.page + 1;
+        setValue({text : value.text, page : page});
+    }
+  
+    const handleDecrease = () => {
+        let page = value.page - 1 ;
+        setValue({text : value.text, page : page});
+    }
 
     const listener = () => {
-        const state = store.getState().map(x => x.text);
-        setValue(state);
+        let text = store.getState().map(x => x.text);
+        setValue({text : text, page : value.page});
     }
     store.subscribe(listener);
     
     useEffect(() => {
+        console.log("page", value.page);
         
-        const URL = ENDPOINT + `core/search?select=*&from=board.board&where=text_idx='${value}' allword`;  
+        let offset = (value.page-1) * page_size
+        let limit = page_size * value.page
+        const URL = ENDPOINT + `core/search?select=*&from=board.board&where=text_idx='${value.text}' allword&offset=${offset}&limit=${limit}`;  
         console.log("URL", URL)
         fetch(`${URL}`).then(res => res.json())
         .then(data => setState({
@@ -33,7 +50,7 @@ const SearchResultList = () => {
             total_count : data.result.total_count,
         }));
     
-    }, [value]);
+    }, [value.text,value.page]);
     
     
 
@@ -65,10 +82,10 @@ const SearchResultList = () => {
         </div>) : <div>검색어 {keywords}에 대한 검색결과가 없습니다.</div> }
         <div className="flex flex-wrap justify-between h-75vh overflow-hidden overflow-scroll w-full" >
             {searchList}
-            {state.total_count > 0 &&(
+            {/* state.total_count > 0 */ true &&(
                  <div className=" w-full h-10 inline-flex justify-center ">
-                    <button className=" mr-3 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg"><FontAwesomeIcon icon={faMinus}/> Prev </button>
-                    <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg">Next <FontAwesomeIcon icon={faPlus}/></button>
+                    <button className=" mr-3 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg" onClick={handleDecrease}><FontAwesomeIcon icon={faMinus}/> Prev </button>
+                    <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg" onClick={handleIncrease}>Next <FontAwesomeIcon icon={faPlus}/></button>
                  </div>
             )
             }
