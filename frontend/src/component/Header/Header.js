@@ -3,7 +3,7 @@ import {BrowserRouter, Route, NavLink, Link, Switch} from "react-router-dom"
 import {connect} from "react-redux"
 import {actionSearch} from "../../store";
 import Main from "../Main"
-import List from "../List/List"
+import Bot from "../Bot/Bot"
 import SearchList from '../Search/SearchList'
 import Community from '../Community/Community'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -46,7 +46,7 @@ const Header = ({nomalSearch}) => {
           <div className="text-sm flex-grow">
             <ul >
               <li className="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4">
-                  <NavLink to="/list" activeStyle={activeStyle}>Open API</NavLink>
+                  <NavLink to="/bot" activeStyle={activeStyle}>Konan Bot</NavLink>
               </li>
               <li className="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4">
                   <NavLink to="/search" activeStyle={activeStyle}>Search Page</NavLink>
@@ -75,7 +75,7 @@ const Header = ({nomalSearch}) => {
       <div>
         <Switch>
           <Route exact path="/" component={Main}/>
-          <Route path="/list" component={List}/>
+          <Route path="/bot" component={Bot}/>
           <Route path="/search" component={SearchList}/>
           <Route path="/board" component={Community}/>
         </Switch>  

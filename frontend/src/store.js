@@ -43,7 +43,7 @@ const reducer = (state= [], action) =>{
         case SEARCH : 
             return [{text:action.text}]
         case CATEGORY : 
-            return [{category:action.category}]
+            return [{category:action.category}, ...state]
         case ORDER :
             return state;
         case PPK : 
