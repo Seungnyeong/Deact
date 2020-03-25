@@ -3,6 +3,7 @@ import {ENDPOINT} from "../../../constants"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
+
 class Popular extends React.Component{
 
     state = {
@@ -17,13 +18,14 @@ class Popular extends React.Component{
         }));
     }
 
+   
 
     render(){
         const {result} = this.state;
         let number = 1;
         const arr = result.map((item) => (
         <li className="flex mb-1 transition duration-500 ease-in-out ease-in-out transform hover:-translate-y-1 hover:scale-110">
-            <div className="border bg-white w-6 h-6 text-center shadow text-gray-600">{number++}</div><a href='#'  className="ml-2 w-24">{item[0]}</a>
+            <div className="border bg-white w-6 h-6 text-center shadow text-gray-600">{number++}</div><a href='http://www.naver.com' onClick={handlesearchPPK} className="ml-2 w-24">{item[0]}</a>
             <div className=" text-sm flex">
             {
                 item[1] === 'new' && (<div className='text-red-600 '>{item[1]}</div>)
@@ -57,4 +59,7 @@ class Popular extends React.Component{
     }
 }
 
+const handlesearchPPK = (item) => {
+    console.log("item", item);
+}
 export {Popular}

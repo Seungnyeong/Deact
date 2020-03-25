@@ -1,6 +1,6 @@
 import React from 'react'
 import {SearchResultList} from './Result/index'
-import {Category} from './Category/index'
+import Category from './Category/index'
 import {Popular} from './Popular/index'
 import {Filter} from './Filter/index'
 

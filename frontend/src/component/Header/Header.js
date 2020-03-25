@@ -27,7 +27,7 @@ const Header = ({nomalSearch}) => {
     nomalSearch(text);
     setText("");
   }
-  console.log(text)
+  
   return (
           <BrowserRouter>
           <nav className="flex items-center justify-between flex-wrap bg-yellow-600 p-6 border-b-2">
@@ -59,7 +59,7 @@ const Header = ({nomalSearch}) => {
                 <form onSubmit={onSubmit}>
                   <div className=" ml-2 w-auto h-auto mt-1">
                     <button><FontAwesomeIcon className="inline-block mr-3" icon={faSearch}></FontAwesomeIcon></button>
-                    <input placeholder="검색어를 입력해주세요" onChange={onChange} value={text} className="h-auto focus:outline-none "></input>
+                    <input placeholder="검색어를 입력해주세요" id="search_input" onChange={onChange} value={text} className="h-auto focus:outline-none "></input>
                   </div>
                 </form>
               </li>              

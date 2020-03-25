@@ -3,7 +3,7 @@ import {createStore} from "redux";
 const SEARCH = "SEARCH";
 const CATEGORY = "CATEGORY";
 const ORDER = "ORDER";
-
+const PPK = "PPK";
 
 
 const nomalSearch = (text) =>{
@@ -15,10 +15,10 @@ const nomalSearch = (text) =>{
 }
 
 
-const categorySearch = (text) =>{
+const categorySearch = (category) =>{
     return {
         type : CATEGORY,
-        text
+        category
     }
 }
 
@@ -30,15 +30,24 @@ const orderSearch = (text) =>{
     }
 }
 
+const ppkSearch = (text) =>{
+    return {
+        type : PPK,
+        text
+    }
+}
+
 
 const reducer = (state= [], action) =>{
     switch(action.type){
         case SEARCH : 
             return [{text:action.text}]
         case CATEGORY : 
-            return state;
+            return [{category:action.category}]
         case ORDER :
             return state;
+        case PPK : 
+            return [{text:action.text}]
         default:
             return state;
     }
@@ -51,6 +60,7 @@ const store = createStore(reducer, devTools);
 export const actionSearch = {
     nomalSearch,
     categorySearch,
-    orderSearch
+    orderSearch,
+    ppkSearch,
 }
 export default store;

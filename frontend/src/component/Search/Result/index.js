@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useSelector, useMemo } from 'react'
+import React, { useState, useEffect} from 'react'
 import {ENDPOINT} from "../../../constants"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngry,faMinus, faPlus, faAddressCard } from '@fortawesome/free-solid-svg-icons'
@@ -10,6 +10,7 @@ const SearchResultList = () => {
     const keywords = store.getState().map((keyword) => (
         <b className="text-red-500">{keyword.text}</b>
     ));
+    
 
     const [state, setState] = useState({
         result: [],
@@ -18,39 +19,43 @@ const SearchResultList = () => {
 
     const [value, setValue] = useState({
         text : '',
-        page : 1
+        page : 1,
+        category : 'ALL'
     });
 
     const handleIncrease = () => {    
         let page = value.page + 1;
-        setValue({text : value.text, page : page});
-    }
+        setValue({text : value.text, page : page, category: value.category});
+    };
   
     const handleDecrease = () => {
         let page = value.page - 1 ;
-        setValue({text : value.text, page : page});
-    }
+        setValue({text : value.text, page : page, category: value.category});
+    };
 
     const listener = () => {
         let text = store.getState().map(x => x.text);
-        setValue({text : text, page : value.page});
-    }
+        let category = store.getState().map(x => x.category);
+        if (category[0] === undefined ){
+            category = 'ALL';
+        }
+        setValue({text : text, page : 1, category: category});
+    };
+
     store.subscribe(listener);
     
     useEffect(() => {
-        console.log("page", value.page);
         
         let offset = (value.page-1) * page_size
         let limit = page_size * value.page
         const URL = ENDPOINT + `core/search?select=*&from=board.board&where=text_idx='${value.text}' allword&offset=${offset}&limit=${limit}`;  
-        console.log("URL", URL)
         fetch(`${URL}`).then(res => res.json())
         .then(data => setState({
             result : data.result.rows,
             total_count : data.result.total_count,
         }));
     
-    }, [value.text,value.page]);
+    }, [value.text,value.page, value.category]);
     
     
 
@@ -72,17 +77,19 @@ const SearchResultList = () => {
         </ul>
         
     ));
+
+    
     
     return (
-        
+
         <div name="article" className="h-full w-full">
         {state.total_count > 0 ? (<div className="mt-3 border-b-4 mb-1">
             <FontAwesomeIcon className="text-yellow-600 text-xl ml-3" icon={faAngry}/>
-          {state.total_count > 0 ? <span className="ml-1">검색어 {keywords} 에 대한 검색 결과 총 <b className="text-red-500">{state.total_count}</b>개 입니다.</span> : <span className="ml-1">검색결과가 없습니다.</span>}
+    {state.total_count > 0 ? <span className="ml-1">카테고리 {value.category} 에서 검색어 {keywords} 에 대한 검색 결과 총 <b className="text-red-500">{state.total_count}</b>개 입니다.</span> : <span className="ml-1">검색결과가 없습니다.</span>}
         </div>) : <div>검색어 {keywords}에 대한 검색결과가 없습니다.</div> }
         <div className="flex flex-wrap justify-between h-75vh overflow-hidden overflow-scroll w-full" >
             {searchList}
-            {/* state.total_count > 0 */ true &&(
+            {state.total_count > 0  &&(
                  <div className=" w-full h-10 inline-flex justify-center ">
                     <button className=" mr-3 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg" onClick={handleDecrease}><FontAwesomeIcon icon={faMinus}/> Prev </button>
                     <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg" onClick={handleIncrease}>Next <FontAwesomeIcon icon={faPlus}/></button>
